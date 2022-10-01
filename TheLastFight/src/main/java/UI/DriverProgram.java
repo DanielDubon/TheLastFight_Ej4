@@ -100,7 +100,7 @@ public class DriverProgram {
                         if (turno <= players.size()) {
                             System.out.println("Es el turno del combatiente: "+turno);
 
-                            System.out.println("¿Que desea realizar?");
+                            System.out.println("¿Que desea realizara?");
                             System.out.println("1)Atacar");
                             System.out.println("2)Item");
                             System.out.println("3)Pasar turno");
