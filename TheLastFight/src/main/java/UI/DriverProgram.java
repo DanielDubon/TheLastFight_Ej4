@@ -28,6 +28,10 @@ public class DriverProgram {
         Scanner in = new Scanner(System.in);
         int opcion;
         while (menu1) {
+            players.clear();
+            enemys.clear();
+            menu2 = true;
+            menu3Juego = true;
             System.out.println("---Bienvenido a La ultima batalla---");
             System.out.println("1)Iniciar");
             System.out.println("2)Salir");
@@ -121,7 +125,7 @@ public class DriverProgram {
 
                                      System.out.println("¿Que enemigo desea atacar?");
                                      for (Enemy enemy : enemys) {
-                                         System.out.println("Enemigo " + enemy.getId() + "Nombre: " + enemy.getName());
+                                         System.out.println("Enemigo " + enemy.getId() + ") Nombre: " + enemy.getName());
                                      }
 
                                      opcion = in.nextInt();
