@@ -183,6 +183,32 @@ public class Actions {
         }
 
 
+        public  static void useitem(int turno, int opcion, ArrayList<Enemy> enemies,ArrayList<Player> players){
+            for (Player player: players){
+
+                    if (player.getId() == turno){
+                        System.out.println("Uusaste el item: "+player.getItems().get(opcion-1));
+
+                        if ( player.getItems().get(opcion-1).equals("Curarse")){
+                            player.setHp(player.getHp()+20);
+                            System.out.println(player.getName()+" se curo 20HP");
+                            ArrayList<String> actualizaciondeitems = (ArrayList<String>) player.getItems().clone();
+                            actualizaciondeitems.remove(opcion-1);
+                                    player.setItems(actualizaciondeitems);
+                        }else if(player.getItems().get(opcion-1).equals("Subir ataque")){
+
+                        }else{
+                            System.out.println("Imposible de usar...");
+                        }
+
+                    }
+
+            }
+
+
+        }
+
+
     public static int generarIDPlayer(ArrayList<Player> players) {
         int IDUSU = 1;
 

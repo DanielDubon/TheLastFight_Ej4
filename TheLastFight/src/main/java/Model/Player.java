@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Player {
 
     private int id;
@@ -17,14 +19,25 @@ public class Player {
     private int atk;
     protected int Nitems;
 
+    private ArrayList<String> items = new ArrayList<>();
 
-    public Player(int id,String name, int hp,int atk, int Nitems){
+
+    public Player(int id,String name, int hp,int atk, int Nitems, ArrayList<String> items){
         this.id = id;
         this.name = name;
         this.hp = hp;
         this.atk = atk;
         this.Nitems = Nitems;
+        this.items = items;
 
+    }
+
+    public ArrayList<String> getItems() {
+        return items;
+    }
+
+    public void setItems(ArrayList<String> items) {
+        this.items = items;
     }
 
     public String getName() {

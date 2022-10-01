@@ -44,23 +44,30 @@ public class DriverProgram {
                         opcion = in.nextInt();
 
                         if (opcion == 1) {
-                            System.out.println("¿Cual es su nombre?");
+                            System.out.println("¿Cual es tu nombre?");
                             in.nextLine();
                             String name = in.nextLine();
                             int hp = 100;
                             int atk = 10;
-                            int Nitems = 2;
-                            Warrior player = new Warrior(generarIDPlayer(players),name, hp, atk, Nitems);
+                            int Nitems = 1;
+
+                            ArrayList<String> items= new ArrayList<>();
+                            items.add("Curar");
+
+                            Warrior player = new Warrior(generarIDPlayer(players),name, hp, atk, Nitems,items);
                             players.add(player);
 
                         } else if (opcion == 2) {
-                            System.out.println("¿Cual es su nombre?");
+                            System.out.println("¿Cual es tu nombre?");
                             in.nextLine();
                             String name = in.nextLine();
                             int hp = 60;
                             int atk = 5;
-                            int Nitems = 10;
-                            Explorer player = new Explorer(generarIDPlayer(players),name, hp, atk, Nitems);
+                            int Nitems = 3;
+                            ArrayList<String> items= new ArrayList<>();
+                            items.add("Curarse");
+                            items.add("Subir Ataque");
+                            Explorer player = new Explorer(generarIDPlayer(players),name, hp, atk, Nitems,items);
                             players.add(player);
                         }
 
@@ -115,12 +122,28 @@ public class DriverProgram {
                                     opcion = in.nextInt();
                                     attack(turno,opcion,enemys,players);
                                     break;
+                                case 2:
+                                    System.out.println("¿Que item desea utilizar?");
+                                    int indice= 0;
+                                    for (Player player: players){
+                                        if (player.getId() == turno){
+                                       for(String items: player.getItems()){
+                                        indice = indice+1;
+                                        System.out.println(indice+")"+items);
+                                       }
+                                       in.nextLine();
+                                       opcion = in.nextInt();
+                                       useitem(turno,opcion,enemys,players);
+                                    }
+                                    }
 
                             }
                             turno = turno+1;
                         }
                      //aqui atacan los peleles malos
                     while (turno<=players.size()+enemys.size()){
+
+                        //enemyattack(turno,opcion,enemys,players);
 
                         turno= turno+1;
                     }
