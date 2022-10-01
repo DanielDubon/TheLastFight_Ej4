@@ -36,8 +36,8 @@ public class Actions {
                 case 1:
                     name = "Esphantos";
                      msg = "No podras ganarme";
-                     hp = 199;
-                     atk = 29;
+                     hp = 120;
+                     atk = 20;
                      esp = "Regeneracion";
                      enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp);
                     enemys.add(enemy);
@@ -52,8 +52,8 @@ public class Actions {
 
                     name = "Sussy";
                     msg = "No podras ganarme";
-                    hp = 199;
-                    atk = 29;
+                    hp = 140;
+                    atk = 15;
                     esp = "Regeneracion";
                     enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp);
                     enemys.add(enemy);
@@ -69,8 +69,8 @@ public class Actions {
 
                     name = "Sussy";
                     msg = "No podras ganarme";
-                    hp = 199;
-                    atk = 29;
+                    hp = 140;
+                    atk = 15;
                     esp = "Regeneracion";
                     enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp);
                     enemys.add(enemy);
@@ -78,8 +78,8 @@ public class Actions {
                 case 3:
                     name = "Sussy";
                     msg = "No podras ganarme";
-                    hp = 199;
-                    atk = 29;
+                    hp = 140;
+                    atk = 15;
                     esp = "Regeneracion";
                     enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp);
                     enemys.add(enemy);
@@ -185,16 +185,22 @@ public class Actions {
     public static void enemyattack(int turno,int idA, ArrayList<Enemy> enemies,ArrayList<Player> players){
         for (Enemy enemy: enemies){
             for (Player player: players){
-                if (enemy.getId() == turno){
-                    if (idA == player.getId()) {
-                        if (!(player.getHp() <= 0)) {
-                            String ataque = ("El Enemigo: " + enemy.getName() + " ataco a: " + player.getName() + " ->vida anterior: " + player.getHp() + " vida nueva: " + (player.getHp() - enemy.getAtk()));
-                            System.out.println(ataque);
-                            player.setHp(player.getHp() - enemy.getAtk());
-                        }else{  String ataque =("Se fallo el ataque porque ya esta muerto tirado en el piso... no se logro atacar a nadie"); System.out.println(ataque);}
+                if (enemy.getId() == turno) {
+                    if (!(enemy.getHp() <= 0)) {
+                        if (idA == player.getId()) {
+                            if (!(player.getHp() <= 0)) {
+                                String ataque = ("El Enemigo: " + enemy.getName() + " ataco a: " + player.getName() + " ->vida anterior: " + player.getHp() + " vida nueva: " + (player.getHp() - enemy.getAtk()));
+                                System.out.println(ataque);
+                                player.setHp(player.getHp() - enemy.getAtk());
+                            } else {
+                                String ataque = ("Se fallo el ataque porque ya esta muerto tirado en el piso... no se logro atacar a nadie");
+                                System.out.println(ataque);
+                            }
+                        }
                     }
-                }
 
+
+                }
             }
 
         }
@@ -232,26 +238,27 @@ public class Actions {
         for (Enemy enemy: enemies){
 
             if (enemy.getId() == turno){
-                System.out.println("Uso el ataque especial: "+enemy.getEsp());
 
-                if ( enemy.getEsp().equals("Regeneracion")){
-                    enemy.setHp(enemy.getHp()+15);
-                    System.out.println(enemy.getName()+" se curo 15HP");
-                }else if(enemy.getEsp().equals("AtaqueDoble")){
-                    for (Player player: players){
-                        if (player.getId() == opcion){
-                            String ataque = ("El Enemigo: " + enemy.getName() + " ataco a: " + player.getName() + " ->vida anterior: " + player.getHp() + " vida nueva: " + (player.getHp() - (enemy.getAtk()*2)));
-                            System.out.println(ataque);
-                            player.setHp(player.getHp() - (enemy.getAtk()*2));
-                            System.out.println("Golpe fuerte.....");
+                    if(!(enemy.getHp()<= 0)) {
+                        System.out.println("El Enemigo: " + enemy.getName() + " uso su habilidad especial: " + enemy.getEsp());
+                        if (enemy.getEsp().equals("Regeneracion")) {
+                            enemy.setHp(enemy.getHp() + 15);
+                            System.out.println(enemy.getName() + " se curo 15HP");
+                        } else if (enemy.getEsp().equals("AtaqueDoble")) {
+                            for (Player player : players) {
+                                if (player.getId() == opcion) {
+                                    String ataque = ("El Enemigo: " + enemy.getName() + " ataco fuertemente a: " + player.getName() + " ->vida anterior: " + player.getHp() + " vida nueva: " + (player.getHp() - (enemy.getAtk() * 2)));
+                                    System.out.println(ataque);
+                                    player.setHp(player.getHp() - (enemy.getAtk() * 2));
+                                    System.out.println("Golpe fuerte.....");
+                                }
+                            }
+
+
+                        } else {
+                            System.out.println("EL enemigo no logro usar su ataque especial...");
                         }
                     }
-
-
-
-                }else{
-                    System.out.println("EL enemigo no logro usar su ataque especial...");
-                }
 
             }
 

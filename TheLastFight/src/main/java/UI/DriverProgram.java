@@ -40,7 +40,7 @@ public class DriverProgram {
                     while (menu2) {
                         System.out.println("¿Que tipo de personaje desea ser?");
                         System.out.println("1)Guerrero");
-                        System.out.println("1)Explorador");
+                        System.out.println("2)Explorador");
                         opcion = in.nextInt();
 
                         if (opcion == 1) {
@@ -105,39 +105,54 @@ public class DriverProgram {
 
                         if (gameRunning(players,enemys)){
                      while (turno <= players.size()){
-                             gamestatus(players,enemys);
-                            System.out.println("Es el turno del combatiente: "+turno+" ");
+                         for (Player player:players) {
+                             if (player.getId()== turno){
+                             if (!(player.getHp()<=0)){
+                             gamestatus(players, enemys);
+                             System.out.println("Es el turno del combatiente: " + turno + " ");
 
-                            System.out.println("¿Que desea realizar?");
-                            System.out.println("1)Atacar");
-                            System.out.println("2)Item");
-                            System.out.println("3)Pasar turno");
-                            opcion = in.nextInt();
-                            switch (opcion) {
-                                case 1:
-                                    System.out.println("¿Que enemigo desea atacar?");
-                                    for (Enemy enemy: enemys){
-                                        System.out.println("Enemigo "+enemy.getId()+"Nombre: "+enemy.getName());
-                                    }
-                                    opcion = in.nextInt();
-                                    attack(turno,opcion,enemys,players);
-                                    break;
-                                case 2:
-                                    System.out.println("¿Que item desea utilizar?");
-                                    int indice= 0;
-                                    for (Player player: players){
-                                        if (player.getId() == turno){
-                                       for(String items: player.getItems()){
-                                        indice = indice+1;
-                                        System.out.println(indice+")"+items);
-                                       }
-                                       in.nextLine();
-                                       opcion = in.nextInt();
-                                       useitem(turno,opcion,enemys,players);
-                                    }
-                                    }
+                             System.out.println("¿Que desea realizar?");
+                             System.out.println("1)Atacar");
+                             System.out.println("2)Item");
+                             System.out.println("3)Pasar turno");
+                             opcion = in.nextInt();
+                             switch (opcion) {
+                                 case 1:
 
-                            }
+                                     System.out.println("¿Que enemigo desea atacar?");
+                                     for (Enemy enemy : enemys) {
+                                         System.out.println("Enemigo " + enemy.getId() + "Nombre: " + enemy.getName());
+                                     }
+
+                                     opcion = in.nextInt();
+                                     attack(turno, opcion, enemys, players);
+
+                                     break;
+                                 case 2:
+                                     System.out.println("¿Que item desea utilizar?");
+                                     int indice = 0;
+
+                                         if (player.getId() == turno) {
+                                             if (!(player.getItems().isEmpty())) {
+                                                 for (String items : player.getItems()) {
+                                                     indice = indice + 1;
+                                                     System.out.println(indice + ")" + items);
+                                                 }
+                                                 in.nextLine();
+                                                 opcion = in.nextInt();
+                                                 useitem(turno, opcion, enemys, players);
+                                             } else {
+                                                 System.out.println("Ya no tiene items por usar");
+                                             }
+                                         }
+
+                                     break;
+                                 case 3:
+                                     System.out.println("El combatiente" + turno + " no realizo nada....");
+                             }
+                         }else {System.out.println(player.getName()+" esta muerto...");}
+                         }
+                         }
                             turno = turno+1;
                         }
                    turno = 1;
