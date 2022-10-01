@@ -206,9 +206,9 @@ public class Actions {
             for (Player player: players){
 
                     if (player.getId() == turno){
-                        System.out.println("Uusaste el item: "+player.getItems().get(opcion-1));
+                        System.out.println("Usaste el item: "+player.getItems().get(opcion-1));
 
-                        if ( player.getItems().get(opcion-1).equals("Curarse")){
+                        if (player.getItems().get(opcion-1).equals("Curar")){
                             player.setHp(player.getHp()+20);
                             System.out.println(player.getName()+" se curo 20HP");
                             ArrayList<String> actualizaciondeitems = (ArrayList<String>) player.getItems().clone();

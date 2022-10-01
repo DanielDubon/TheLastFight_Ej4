@@ -47,7 +47,7 @@ public class DriverProgram {
                             System.out.println("¿Cual es tu nombre?");
                             in.nextLine();
                             String name = in.nextLine();
-                            int hp = 100;
+                            int hp = 120;
                             int atk = 10;
                             int Nitems = 1;
 
@@ -61,11 +61,11 @@ public class DriverProgram {
                             System.out.println("¿Cual es tu nombre?");
                             in.nextLine();
                             String name = in.nextLine();
-                            int hp = 60;
-                            int atk = 5;
+                            int hp = 90;
+                            int atk = 7;
                             int Nitems = 3;
                             ArrayList<String> items= new ArrayList<>();
-                            items.add("Curarse");
+                            items.add("Curar");
                             items.add("Subir Ataque");
                             Explorer player = new Explorer(generarIDPlayer(players),name, hp, atk, Nitems,items);
                             players.add(player);
