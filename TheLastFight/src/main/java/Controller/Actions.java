@@ -5,6 +5,7 @@ import Model.Enemy;
 import Model.Minion;
 import Model.Player;
 
+import java.lang.reflect.AccessibleObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -106,7 +107,7 @@ public class Actions {
         System.out.println(" ");
         System.out.println("-------------------------");
         for (Player player: players){
-            System.out.println("Combatiente "+player.getId()+" Nombre: "+player.getName()+" vida: "+ player.getHp()+" Items"+player.getNitems());
+            System.out.println("Combatiente "+player.getId()+" Nombre: "+player.getName()+" vida: "+ player.getHp()+" Items: "+player.getNitems());
         }
             System.out.println(" ");
         System.out.println("  ++++++VS++++++  ");
@@ -122,19 +123,21 @@ public class Actions {
 
         public static boolean gameRunning(ArrayList<Player> players, ArrayList<Enemy> enemies){
         boolean ingame= true;
-        int TOTALHPP=0;
-        int TOTALHPE=0;
+        int TOTALHPP=1;
+        int TOTALHPE=1;
 
         for (Player player: players){
             TOTALHPP = TOTALHPP+player.getHp();
+
         }
 
-        for (Enemy enemy: enemies){
-            TOTALHPE = TOTALHPE+enemy.getHp();
+        for (Enemy enemy: enemies) {
+            TOTALHPE = TOTALHPE + enemy.getHp();
+
         }
-        if (TOTALHPP==0 || TOTALHPE==0){
-            ingame = false;
-        }
+            if (TOTALHPP<=0 || TOTALHPE<=0){
+                ingame = false;
+            }
 
         return ingame;
         }
@@ -150,12 +153,32 @@ public class Actions {
             for (Enemy enemy: enemies){
                 TOTALHPE = TOTALHPE+enemy.getHp();
             }
-            if (TOTALHPP== 0){
+            if (TOTALHPP<= 0){
                 System.out.println("Perdiste, ganaron los enemigos");
-            }else if (TOTALHPE ==0){
+            }else if (TOTALHPE <=0){
                 System.out.println("Victoria, los enemigos fueron derrotados");
             }
 
+
+        }
+
+        public static void attack(int turno,int idA, ArrayList<Enemy> enemies,ArrayList<Player> players){
+
+        for (Player player: players){
+            for (Enemy enemy: enemies){
+                if (player.getId() == turno){
+                    if (idA == enemy.getId()) {
+                        if (!(enemy.getHp() <= 0)) {
+                            String ataque = ("El jugador: " + player.getName() + " ataco a: " + enemy.getName() + " ->vida anterior: " + enemy.getHp() + " vida nueva: " + (enemy.getHp() - player.getAtk()));
+                            System.out.println(ataque);
+                            enemy.setHp(enemy.getHp() - player.getAtk());
+                        }else{  String ataque =("Este enemigo ya esta muerto tirado en el piso... no se logro atacar a nadie"); System.out.println(ataque);}
+                    }
+                }
+
+            }
+
+        }
 
         }
 

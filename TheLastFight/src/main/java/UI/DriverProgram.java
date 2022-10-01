@@ -95,12 +95,13 @@ public class DriverProgram {
 
                     turno = 1;
                     while (menu3Juego){
-                        gamestatus(players,enemys);
-                        if (gameRunning(players,enemys)){
-                        if (turno <= players.size()) {
-                            System.out.println("Es el turno del combatiente: "+turno);
 
-                            System.out.println("¿Que desea realizara?");
+                        if (gameRunning(players,enemys)){
+                     while (turno <= players.size()){
+                             gamestatus(players,enemys);
+                            System.out.println("Es el turno del combatiente: "+turno+" ");
+
+                            System.out.println("¿Que desea realizar?");
                             System.out.println("1)Atacar");
                             System.out.println("2)Item");
                             System.out.println("3)Pasar turno");
@@ -108,20 +109,32 @@ public class DriverProgram {
                             switch (opcion) {
                                 case 1:
                                     System.out.println("¿Que enemigo desea atacar?");
-
+                                    for (Enemy enemy: enemys){
+                                        System.out.println("Enemigo "+enemy.getId()+"Nombre: "+enemy.getName());
+                                    }
+                                    opcion = in.nextInt();
+                                    attack(turno,opcion,enemys,players);
                                     break;
 
                             }
+                            turno = turno+1;
                         }
+                     //aqui atacan los peleles malos
+                    while (turno<=players.size()+enemys.size()){
+
+                        turno= turno+1;
+                    }
+                    turno = 1;
 
                     }else {
                             checkwinner(players,enemys);
+                            menu3Juego = false;
                         }
                     }
                         break;
                         case 2:
                             System.out.println("                         ");
-                            System.out.println("Adios cobarde.......");
+                            System.out.println("Adios hasta luego.......");
                             menu1 = false;
                             break;
                         default:
