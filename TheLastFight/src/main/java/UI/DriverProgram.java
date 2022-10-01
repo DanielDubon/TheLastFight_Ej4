@@ -140,11 +140,18 @@ public class DriverProgram {
                             }
                             turno = turno+1;
                         }
-                     //aqui atacan los peleles malos
-                    while (turno<=players.size()+enemys.size()){
+                   turno = 1;
+                    while (turno<=enemys.size()){
 
-                        //enemyattack(turno,opcion,enemys,players);
+                        int enemymovement = (int)(Math.random()*4+1);
 
+                        if (enemymovement == 1 || enemymovement == 2 || enemymovement == 3) {
+                            opcion = (int) (Math.random() * players.size() + 1);
+                            enemyattack(turno, opcion, enemys, players);
+                        }else if (enemymovement == 4){
+                            opcion = (int) (Math.random() * players.size() + 1);
+                            enemyuseitem(turno,opcion,enemys,players);
+                        }
                         turno= turno+1;
                     }
                     turno = 1;

@@ -182,6 +182,25 @@ public class Actions {
 
         }
 
+    public static void enemyattack(int turno,int idA, ArrayList<Enemy> enemies,ArrayList<Player> players){
+        for (Enemy enemy: enemies){
+            for (Player player: players){
+                if (enemy.getId() == turno){
+                    if (idA == player.getId()) {
+                        if (!(player.getHp() <= 0)) {
+                            String ataque = ("El Enemigo: " + enemy.getName() + " ataco a: " + player.getName() + " ->vida anterior: " + player.getHp() + " vida nueva: " + (player.getHp() - enemy.getAtk()));
+                            System.out.println(ataque);
+                            player.setHp(player.getHp() - enemy.getAtk());
+                        }else{  String ataque =("Se fallo el ataque porque ya esta muerto tirado en el piso... no se logro atacar a nadie"); System.out.println(ataque);}
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
 
         public  static void useitem(int turno, int opcion, ArrayList<Enemy> enemies,ArrayList<Player> players){
             for (Player player: players){
@@ -207,6 +226,39 @@ public class Actions {
 
 
         }
+
+
+    public  static void enemyuseitem(int turno, int opcion, ArrayList<Enemy> enemies,ArrayList<Player> players){
+        for (Enemy enemy: enemies){
+
+            if (enemy.getId() == turno){
+                System.out.println("Uso el ataque especial: "+enemy.getEsp());
+
+                if ( enemy.getEsp().equals("Regeneracion")){
+                    enemy.setHp(enemy.getHp()+15);
+                    System.out.println(enemy.getName()+" se curo 15HP");
+                }else if(enemy.getEsp().equals("AtaqueDoble")){
+                    for (Player player: players){
+                        if (player.getId() == opcion){
+                            String ataque = ("El Enemigo: " + enemy.getName() + " ataco a: " + player.getName() + " ->vida anterior: " + player.getHp() + " vida nueva: " + (player.getHp() - (enemy.getAtk()*2)));
+                            System.out.println(ataque);
+                            player.setHp(player.getHp() - (enemy.getAtk()*2));
+                            System.out.println("Golpe fuerte.....");
+                        }
+                    }
+
+
+
+                }else{
+                    System.out.println("EL enemigo no logro usar su ataque especial...");
+                }
+
+            }
+
+        }
+
+
+    }
 
 
     public static int generarIDPlayer(ArrayList<Player> players) {
