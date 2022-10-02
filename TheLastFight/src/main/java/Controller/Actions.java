@@ -37,8 +37,8 @@ public class Actions {
                 case 1:
                     name = "Esphantos";
                      msg = "No podras ganarme";
-                     hp = 120;
-                     atk = 20;
+                     hp = 60;
+                     atk = 10;
                      esp = "Regeneracion";
                      type = "Minion";
                      enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
@@ -47,7 +47,7 @@ public class Actions {
                     name = "Hulises";
                     msg = "Eres muy lento";
                     hp = 40;
-                    atk = 40;
+                    atk = 20;
                     esp = "AtaqueDoble";
                     type = "Minion";
                     enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
@@ -55,8 +55,8 @@ public class Actions {
 
                     name = "Sussy";
                     msg = "No podras ganarme";
-                    hp = 140;
-                    atk = 15;
+                    hp = 80;
+                    atk = 5;
                     esp = "Regeneracion";
                     type = "Minion";
                     enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
@@ -72,10 +72,10 @@ public class Actions {
                     enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
                     enemys.add(enemy);
 
-                    name = "Sussy";
-                    msg = "No podras ganarme";
+                    name = "Ciclope";
+                    msg = "Miren como mueren";
                     hp = 140;
-                    atk = 15;
+                    atk = 10;
                     esp = "Regeneracion";
                     type = "Minion";
                     enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
@@ -84,7 +84,7 @@ public class Actions {
                 case 3:
                     name = "Sussy";
                     msg = "No podras ganarme";
-                    hp = 140;
+                    hp = 80;
                     atk = 15;
                     esp = "Regeneracion";
                     type = "Minion";
@@ -101,8 +101,8 @@ public class Actions {
                 case 1:
                     name = "Gorr";
                     msg = "Moriran......";
-                    hp = 250;
-                    atk = 60;
+                    hp = 200;
+                    atk = 30;
                     esp = "Regeneracion";
                     espF = "Necroespada";
                     type = "Boss";
@@ -114,7 +114,7 @@ public class Actions {
                     name = "Hela";
                     msg = "No tienen oportunidad......";
                     hp = 150;
-                    atk = 70;
+                    atk = 50;
                     esp = "Regeneracion";
                     espF = "Invocacion";
                     type = "Boss";
@@ -126,8 +126,8 @@ public class Actions {
                 case 3:
                     name = "Enchantress";
                     msg = "Ya esta lista su tumba";
-                    hp = 300;
-                    atk = 50;
+                    hp = 250;
+                    atk = 35;
                     esp = "AtaqueDoble";
                     espF = "LLama eterna";
                     type = "Boss";
@@ -189,11 +189,15 @@ public class Actions {
             int TOTALHPE=0;
 
             for (Player player: players){
-                TOTALHPP = TOTALHPP+player.getHp();
+                if(!(player.getHp()<0)) {
+                    TOTALHPP = TOTALHPP + player.getHp();
+                }
             }
 
             for (Enemy enemy: enemies){
+                if (!(enemy.getHp()<0)){
                 TOTALHPE = TOTALHPE+enemy.getHp();
+                }
             }
             if (TOTALHPP<= 0){
                 System.out.println("Perdiste, ganaron los enemigos");
@@ -262,9 +266,28 @@ public class Actions {
                             ArrayList<String> actualizaciondeitems = (ArrayList<String>) player.getItems().clone();
                             actualizaciondeitems.remove(opcion-1);
                                     player.setItems(actualizaciondeitems);
-                        }else if(player.getItems().get(opcion-1).equals("Subir ataque")){
+                        }else if(player.getItems().get(opcion-1).equals("Subir Ataque")){
 
-                        }else{
+                                System.out.println("El jugador: " +player.getName()+" elevo su poder con un hechizo: "+" poder antiguo: "+player.getAtk()+" poder nuevo: "+(player.getAtk()+5));
+                                player.setAtk(player.getAtk()+5);
+
+                            ArrayList<String> actualizaciondeitems = (ArrayList<String>) player.getItems().clone();
+                            actualizaciondeitems.remove(opcion-1);
+                            player.setItems(actualizaciondeitems);
+                        }else if(player.getItems().get(opcion-1).equals("Lluvia Curadora")){
+
+                            lluviacuradora = true;
+                            ArrayList<String> actualizaciondeitems = (ArrayList<String>) player.getItems().clone();
+                            actualizaciondeitems.remove(opcion-1);
+                            player.setItems(actualizaciondeitems);
+
+                        }else if(player.getItems().get(opcion-1).equals("Revivir")){
+                            revivir = true;
+                            ArrayList<String> actualizaciondeitems = (ArrayList<String>) player.getItems().clone();
+                            actualizaciondeitems.remove(opcion-1);
+                            player.setItems(actualizaciondeitems);
+                        }
+                        else {
                             System.out.println("Imposible de usar...");
                         }
 
@@ -428,6 +451,35 @@ public class Actions {
         }
 
     }
+
+    public static void lluviacuradora(ArrayList<Player> players){
+
+        for (Player player: players) {
+            int i=0;
+            if (!(player.getHp() <= 0)) {
+                System.out.println("curando 3----");
+                while (i <= 2){
+                    player.setHp(player.getHp() + 10);
+                    System.out.println("El combatiente " + player.getName() + " se cura: vida: " + player.getHp());
+                    i=i+1;
+                }
+            }
+        }
+    }
+
+    public static void revivir(ArrayList<Player> players){
+        int i=0;
+        for (Player player: players) {
+            if (player.getHp() <= 0) {
+               if (!(i ==1)){
+                   System.out.println("Se revivio el jugador: "+player.getName());
+                   player.setHp(80);
+                   i=i+1;
+
+               }
+                }
+            }
+        }
 
 
     public static int generarIDPlayer(ArrayList<Player> players) {

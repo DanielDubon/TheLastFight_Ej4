@@ -13,6 +13,9 @@ public class DriverProgram {
     static boolean menu2 = true;
     static boolean menu3Juego = true;
     public static boolean invocacion = false;
+    public static boolean lluviacuradora = false;
+
+    public static boolean revivir = false;
     static int turno = 0;
 
     static public ArrayList<Player> players = new ArrayList();
@@ -73,8 +76,8 @@ public class DriverProgram {
                             ArrayList<String> items= new ArrayList<>();
                             items.add("Curar");
                             items.add("Subir Ataque");
-                            items.add("Curar");
-                            items.add("Curar");
+                            items.add("Revivir");
+                            items.add("Lluvia Curadora");
                             Explorer player = new Explorer(generarIDPlayer(players),name, hp, atk, Nitems,items);
                             players.add(player);
                         }
@@ -161,7 +164,7 @@ public class DriverProgram {
                     while (turno<=enemys.size()) {
 
                         int enemymovement = (int) (Math.random() * 4 + 1);
-                        int bossmovement = (int) (Math.random() * 7 + 1);
+                        int bossmovement = (int) (Math.random() * 6 + 1);
 
                         for (Enemy enemy : enemys) {
 
@@ -183,10 +186,10 @@ public class DriverProgram {
                                         opcion = (int) (Math.random() * players.size() + 1);
                                         enemyattack(turno, opcion, enemys, players);
 
-                                    } else if (bossmovement == 4 || bossmovement == 6 || bossmovement == 5) {
+                                    } else if (bossmovement == 4 || bossmovement == 5 ) {
                                         opcion = (int) (Math.random() * players.size() + 1);
                                         enemyuseitem(turno, opcion, enemys, players);
-                                    }else if(bossmovement == 7   ){
+                                    }else if(bossmovement == 6   ){
                                         bossfinal(turno, opcion,players,bosses);
                                     }
                                 }else {System.out.println("no se que pasa xd");}
@@ -197,6 +200,17 @@ public class DriverProgram {
                         if (invocacion){
                             invocar();
                             invocacion = false;
+                        }
+
+                        if (lluviacuradora){
+                            System.out.println("curando.....");
+                            lluviacuradora(players);
+                            lluviacuradora = false;
+                        }
+
+                        if (revivir){
+                            revivir(players);
+                            revivir = false;
                         }
                             turno = turno + 1;
 
