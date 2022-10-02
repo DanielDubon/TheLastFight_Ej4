@@ -35,7 +35,7 @@ public class DriverProgram {
             players.clear();
             bosses.clear();
             System.out.println("---Bienvenido a La ultima batalla---");
-            System.out.println("1)Iniciar");
+            System.out.println("1)Comenzar");
             System.out.println("2)Salir");
             System.out.print("Opcion: ");
             opcion = in.nextInt();
