@@ -88,15 +88,44 @@ public class Actions {
 
 
             }else{
-            name = "Esphantos";
-            msg = "No podras ganarme";
-            hp = 199;
-            atk = 29;
-            esp = "Regeneracion";
-            espF = "Ultimate";
-            Boss enemy = new Boss(generarIDEnemy(enemys),espF,name, msg, hp, atk, esp);
-            enemys.add(enemy);
+            int bossrandom = (int)(Math.random()*3+1);
+            switch (bossrandom){
 
+                case 1:
+                    name = "Gorr";
+                    msg = "Moriran......";
+                    hp = 250;
+                    atk = 40;
+                    esp = "Regeneracion";
+                    espF = "Necroespada";
+                    Boss enemy = new Boss(generarIDEnemy(enemys),espF,name, msg, hp, atk, esp);
+                    enemys.add(enemy);
+                    break;
+                case 2:
+                    name = "Hela";
+                    msg = "No tienen oportunidad......";
+                    hp = 150;
+                    atk = 70;
+                    esp = "Regeneracion";
+                    espF = "Invocacion";
+                    enemy = new Boss(generarIDEnemy(enemys),espF,name, msg, hp, atk, esp);
+                    enemys.add(enemy);
+                    break;
+
+                case 3:
+                    name = "Enchantress";
+                    msg = "Ya esta lista su tumba";
+                    hp = 300;
+                    atk = 50;
+                    esp = "AtaqueDoble";
+                    espF = "LLama eterna";
+                    enemy = new Boss(generarIDEnemy(enemys),espF,name, msg, hp, atk, esp);
+                    enemys.add(enemy);
+                    break;
+
+
+
+            }
         }
 
 
