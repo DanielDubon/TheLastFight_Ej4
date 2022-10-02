@@ -3,6 +3,15 @@ package Model;
 public class Enemy {
     private int id;
     private String name;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public int getId() {
         return id;
@@ -17,13 +26,14 @@ public class Enemy {
     private int atk;
     protected String esp;
 
-    public Enemy(int id, String name, String msg, int hp, int atk, String esp) {
+    public Enemy(int id, String name, String msg, int hp, int atk, String esp,String type) {
     this.id = id;
     this.name = name;
     this.msg = msg;
     this.hp = hp;
     this.atk = atk;
     this.esp = esp;
+    this.type = type;
 
 
     }

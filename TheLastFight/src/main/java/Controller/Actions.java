@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-import static UI.DriverProgram.enemys;
+import static UI.DriverProgram.*;
 
 public class Actions {
 
@@ -28,6 +28,7 @@ public class Actions {
         String msg;
         String esp;
         String espF;
+        String type;
         if (players.size() <= 2) {
         Minion enemy;
 
@@ -39,7 +40,8 @@ public class Actions {
                      hp = 120;
                      atk = 20;
                      esp = "Regeneracion";
-                     enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp);
+                     type = "Minion";
+                     enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
                     enemys.add(enemy);
 
                     name = "Hulises";
@@ -47,7 +49,8 @@ public class Actions {
                     hp = 40;
                     atk = 40;
                     esp = "AtaqueDoble";
-                    enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp);
+                    type = "Minion";
+                    enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
                     enemys.add(enemy);
 
                     name = "Sussy";
@@ -55,7 +58,8 @@ public class Actions {
                     hp = 140;
                     atk = 15;
                     esp = "Regeneracion";
-                    enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp);
+                    type = "Minion";
+                    enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
                     enemys.add(enemy);
                     break;
                 case 2:
@@ -64,7 +68,8 @@ public class Actions {
                     hp = 40;
                     atk = 40;
                     esp = "AtaqueDoble";
-                    enemy= new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp);
+                    type = "Minion";
+                    enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
                     enemys.add(enemy);
 
                     name = "Sussy";
@@ -72,7 +77,8 @@ public class Actions {
                     hp = 140;
                     atk = 15;
                     esp = "Regeneracion";
-                    enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp);
+                    type = "Minion";
+                    enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
                     enemys.add(enemy);
                     break;
                 case 3:
@@ -81,7 +87,8 @@ public class Actions {
                     hp = 140;
                     atk = 15;
                     esp = "Regeneracion";
-                    enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp);
+                    type = "Minion";
+                    enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
                     enemys.add(enemy);
                     break;
             }
@@ -95,11 +102,13 @@ public class Actions {
                     name = "Gorr";
                     msg = "Moriran......";
                     hp = 250;
-                    atk = 40;
+                    atk = 60;
                     esp = "Regeneracion";
                     espF = "Necroespada";
-                    Boss enemy = new Boss(generarIDEnemy(enemys),espF,name, msg, hp, atk, esp);
+                    type = "Boss";
+                    Boss enemy = new Boss(generarIDEnemy(enemys),espF,name, msg, hp, atk, esp,type);
                     enemys.add(enemy);
+                    bosses.add(enemy);
                     break;
                 case 2:
                     name = "Hela";
@@ -108,8 +117,10 @@ public class Actions {
                     atk = 70;
                     esp = "Regeneracion";
                     espF = "Invocacion";
-                    enemy = new Boss(generarIDEnemy(enemys),espF,name, msg, hp, atk, esp);
+                    type = "Boss";
+                    enemy = new Boss(generarIDEnemy(enemys),espF,name, msg, hp, atk, esp,type);
                     enemys.add(enemy);
+                    bosses.add(enemy);
                     break;
 
                 case 3:
@@ -119,8 +130,10 @@ public class Actions {
                     atk = 50;
                     esp = "AtaqueDoble";
                     espF = "LLama eterna";
-                    enemy = new Boss(generarIDEnemy(enemys),espF,name, msg, hp, atk, esp);
+                    type = "Boss";
+                    enemy = new Boss(generarIDEnemy(enemys),espF,name, msg, hp, atk, esp,type);
                     enemys.add(enemy);
+                    bosses.add(enemy);
                     break;
 
 
@@ -164,7 +177,7 @@ public class Actions {
             TOTALHPE = TOTALHPE + enemy.getHp();
 
         }
-            if (TOTALHPP<=0 || TOTALHPE<=0){
+            if (TOTALHPP<=1 || TOTALHPE<=1){
                 ingame = false;
             }
 
@@ -276,10 +289,12 @@ public class Actions {
                         } else if (enemy.getEsp().equals("AtaqueDoble")) {
                             for (Player player : players) {
                                 if (player.getId() == opcion) {
-                                    String ataque = ("El Enemigo: " + enemy.getName() + " ataco fuertemente a: " + player.getName() + " ->vida anterior: " + player.getHp() + " vida nueva: " + (player.getHp() - (enemy.getAtk() * 2)));
-                                    System.out.println(ataque);
-                                    player.setHp(player.getHp() - (enemy.getAtk() * 2));
-                                    System.out.println("Golpe fuerte.....");
+                                    if (!(player.getHp()<=0)) {
+                                        String ataque = ("El Enemigo: " + enemy.getName() + " ataco fuertemente a: " + player.getName() + " ->vida anterior: " + player.getHp() + " vida nueva: " + (player.getHp() - (enemy.getAtk() * 2)));
+                                        System.out.println(ataque);
+                                        player.setHp(player.getHp() - (enemy.getAtk() * 2));
+                                        System.out.println("Golpe fuerte.....");
+                                    }else {System.out.println("Se fallo el ataque especial....");}
                                 }
                             }
 
@@ -293,6 +308,124 @@ public class Actions {
 
         }
 
+
+    }
+
+    public  static void bossfinal(int turno, int opcion,ArrayList<Player> players, ArrayList<Boss> bosses){
+
+        for (Boss  boss: bosses){
+            if (boss.getId() == turno){
+                if(!(boss.getHp()<= 0)) {
+                    System.out.println("El Jefe: " + boss.getName() + " uso su habilidad definitiva: " + boss.getFinalesp());
+
+                    if (boss.getFinalesp().equals("Necroespada")) {
+                        for (Player player : players) {
+                            if (player.getId() == opcion) {
+                                if (!(player.getHp() <= 0)) {
+                                    String ataque = ("El Jefe: " + boss.getName() + " uso la necro espada contra: " + player.getName() + " ->vida anterior: " + player.getHp() + " vida nueva: " + 0);
+                                    System.out.println(ataque);
+                                    player.setHp(0);
+                                    System.out.println("Muerte instantanea.....");
+                                } else {
+                                    System.out.println("Se fallo el uso de la necroespada...");
+                                }
+                            }
+                        }
+                    } else if (boss.getFinalesp().equals("Invocacion")) {
+
+                        invocacion = true;
+
+                    }else if(boss.getFinalesp().equals("LLama eterna")){
+
+                        System.out.println("Los combatientes se queman debido al hechizo de la llama eterna...");
+                        for (Player player: players) {
+                            int i=0;
+                            if (!(player.getHp() <= 0)) {
+                                while (i <= 3){
+                                    player.setHp(player.getHp() - 15);
+                                System.out.println("El combatiente " + player.getName() + " se quema, vida: " + player.getHp());
+                                i=i+1;
+                            }
+                            }
+                        }
+
+                    } else {
+                        System.out.println("EL Jefe no logro usar su ataque definitivo...");
+                    }
+                }
+
+            }
+
+        }
+
+
+    }
+
+    public static void invocar(){
+        System.out.println(" ");
+        System.out.println("¡Nuevos enemigos entran al campo de batalla!");
+        int randomvalue = (int) (Math.random() * 3 + 1);
+        Minion enemy;
+        String name;
+        int hp;
+        int atk;
+        String msg;
+        String esp;
+        String espF;
+        String type;
+        //switch para generar enemigos simples;
+        switch (randomvalue) {
+
+            case 1:
+                name = "Esqueleto";
+                msg = "...";
+                hp = 20;
+                atk = 5;
+                esp = "ninguna";
+                type = "Minion";
+                enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
+                enemys.add(enemy);
+
+                                name = "Esqueleto";
+                                msg = "...";
+                                hp = 20;
+                                atk = 5;
+                                esp = "ninguna";
+                                type = "Minion";
+                                enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
+                                enemys.add(enemy);
+
+                                name = "Esqueleto";
+                                msg = "...";
+                                hp = 20;
+                                atk = 5;
+                                esp = "ninguna";
+                                type = "Minion";
+                                enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
+                                enemys.add(enemy);
+                break;
+            case 2:
+                name = "Garmr";
+                msg = "Guau";
+                hp = 100;
+                atk = 30;
+                esp = "AtaqueDoble";
+                type = "Minion";
+                enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
+                enemys.add(enemy);
+
+                break;
+            case 3:
+                name = "Odin zombie";
+                msg = "No podras ganarme";
+                hp = 40;
+                atk = 60;
+                esp = "Regeneracion";
+                type = "Minion";
+                enemy = new Minion(generarIDEnemy(enemys),name, msg, hp, atk, esp,type);
+                enemys.add(enemy);
+                break;
+        }
 
     }
 
