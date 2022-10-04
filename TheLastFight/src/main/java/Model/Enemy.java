@@ -26,6 +26,16 @@ public class Enemy {
     private int atk;
     protected String esp;
 
+    /**
+     *
+     * @param id
+     * @param name
+     * @param msg
+     * @param hp
+     * @param atk
+     * @param esp
+     * @param type
+     */
     public Enemy(int id, String name, String msg, int hp, int atk, String esp,String type) {
     this.id = id;
     this.name = name;

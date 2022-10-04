@@ -1,5 +1,10 @@
 package UI;
 
+
+/**
+ *  Daniel Eduardo Dubon Ortiz 22233
+ */
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,6 +32,7 @@ public class DriverProgram {
     menu();
     }
 
+
     public static void menu() {
 
         Scanner in = new Scanner(System.in);
@@ -41,7 +47,10 @@ public class DriverProgram {
             System.out.println("1)Comenzar");
             System.out.println("2)Salir");
             System.out.print("Opcion: ");
-            opcion = in.nextInt();
+            System.out.print("ingrese el numero de la opcion por favor: ");
+            opcion = Integer.parseInt(in.nextLine());
+
+
 
 
             switch (opcion) {
@@ -50,6 +59,7 @@ public class DriverProgram {
                         System.out.println("¿Que tipo de personaje desea ser?");
                         System.out.println("1)Guerrero");
                         System.out.println("2)Explorador");
+                        System.out.print("ingrese el numero de la opcion por favor: ");
                         opcion = in.nextInt();
 
                         if (opcion == 1) {
@@ -192,7 +202,7 @@ public class DriverProgram {
                                     }else if(bossmovement == 6   ){
                                         bossfinal(turno, opcion,players,bosses);
                                     }
-                                }else {System.out.println("no se que pasa xd");}
+                                }else {}
 
                                 }
                             }

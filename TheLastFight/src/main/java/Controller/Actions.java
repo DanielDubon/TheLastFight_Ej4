@@ -144,7 +144,11 @@ public class Actions {
 
         }
 
-
+    /**
+     *
+     * @param players
+     * @param enemies
+     */
         public static void gamestatus(ArrayList<Player> players, ArrayList<Enemy> enemies){
         System.out.println(" ");
         System.out.println("-------------------------");
@@ -162,7 +166,12 @@ public class Actions {
 
         }
 
-
+    /**
+     *
+     * @param players
+     * @param enemies
+     * @return
+     */
         public static boolean gameRunning(ArrayList<Player> players, ArrayList<Enemy> enemies){
         boolean ingame= true;
         int TOTALHPP=1;
@@ -184,6 +193,11 @@ public class Actions {
         return ingame;
         }
 
+    /**
+     *
+     * @param players
+     * @param enemies
+     */
         public static void checkwinner(ArrayList<Player> players, ArrayList<Enemy> enemies){
             int TOTALHPP=0;
             int TOTALHPE=0;
@@ -208,6 +222,13 @@ public class Actions {
 
         }
 
+    /**
+     *
+     * @param turno
+     * @param idA
+     * @param enemies
+     * @param players
+     */
         public static void attack(int turno,int idA, ArrayList<Enemy> enemies,ArrayList<Player> players){
 
         for (Player player: players){
@@ -228,6 +249,13 @@ public class Actions {
 
         }
 
+    /**
+     *
+     * @param turno
+     * @param idA
+     * @param enemies
+     * @param players
+     */
     public static void enemyattack(int turno,int idA, ArrayList<Enemy> enemies,ArrayList<Player> players){
         for (Enemy enemy: enemies){
             for (Player player: players){
@@ -253,7 +281,13 @@ public class Actions {
 
     }
 
-
+    /**
+     *
+     * @param turno
+     * @param opcion
+     * @param enemies
+     * @param players
+     */
         public  static void useitem(int turno, int opcion, ArrayList<Enemy> enemies,ArrayList<Player> players){
             for (Player player: players){
 
@@ -298,7 +332,13 @@ public class Actions {
 
         }
 
-
+    /**
+     *
+     * @param turno
+     * @param opcion
+     * @param enemies
+     * @param players
+     */
     public  static void enemyuseitem(int turno, int opcion, ArrayList<Enemy> enemies,ArrayList<Player> players){
         for (Enemy enemy: enemies){
 
@@ -334,6 +374,13 @@ public class Actions {
 
     }
 
+    /**
+     *
+     * @param turno
+     * @param opcion
+     * @param players
+     * @param bosses
+     */
     public  static void bossfinal(int turno, int opcion,ArrayList<Player> players, ArrayList<Boss> bosses){
 
         for (Boss  boss: bosses){
@@ -383,6 +430,7 @@ public class Actions {
 
 
     }
+
 
     public static void invocar(){
         System.out.println(" ");
@@ -452,6 +500,10 @@ public class Actions {
 
     }
 
+    /**
+     *
+     * @param players
+     */
     public static void lluviacuradora(ArrayList<Player> players){
 
         for (Player player: players) {
@@ -467,6 +519,10 @@ public class Actions {
         }
     }
 
+    /**
+     *
+     * @param players
+     */
     public static void revivir(ArrayList<Player> players){
         int i=0;
         for (Player player: players) {
@@ -481,6 +537,11 @@ public class Actions {
             }
         }
 
+    /**
+     *
+     * @param players
+     * @return
+     */
 
     public static int generarIDPlayer(ArrayList<Player> players) {
         int IDUSU = 1;
@@ -491,6 +552,11 @@ public class Actions {
         return IDUSU;
     }
 
+    /**
+     *
+     * @param enemies
+     * @return
+     */
     public static int generarIDEnemy(ArrayList<Enemy> enemies) {
         int IDUSU = 1;
 

@@ -1,6 +1,6 @@
 package Model;
 
-public class Boss extends Enemy{
+public class Boss extends Enemy {
 
     private String finalesp;
 
@@ -12,6 +12,18 @@ public class Boss extends Enemy{
         this.finalesp = finalesp;
     }
 
+
+    /**
+     *
+     * @param id
+     * @param finalesp
+     * @param name
+     * @param msg
+     * @param hp
+     * @param atk
+     * @param esp
+     * @param type
+     */
     public Boss(int id, String finalesp, String name, String msg, int hp, int atk, String esp, String type){
     super(id,name,msg,hp,atk,esp,type);
     this.finalesp = finalesp;

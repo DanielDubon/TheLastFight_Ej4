@@ -21,6 +21,15 @@ public class Player {
 
     private ArrayList<String> items = new ArrayList<>();
 
+    /**
+     *
+     * @param id
+     * @param name
+     * @param hp
+     * @param atk
+     * @param Nitems
+     * @param items
+     */
 
     public Player(int id,String name, int hp,int atk, int Nitems, ArrayList<String> items){
         this.id = id;
