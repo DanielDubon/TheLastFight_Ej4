@@ -12,6 +12,9 @@ public class Hunter extends Player{
 
     }
 
+;
+
+
     public String getPokemon() {
         return pokemon;
     }

@@ -6,6 +6,7 @@ package UI;
  */
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import Model.*;
@@ -221,8 +222,22 @@ public class DriverProgram {
 
 
 
-                         if (pokemonmuerto){
-                             for (Player player: players){
+
+                             Iterator<Player> playerIterator = players.iterator();
+
+                             while (playerIterator.hasNext()){
+                                    Player player = playerIterator.next();
+                                    if (player instanceof Pokemon){
+                                        if (player.getHp()<=0) {
+                                                System.out.println("El pokemon " + player.getName()  + " esta muerto ");
+                                                playerIterator.remove();
+                                                checkregeneration = true;
+                                        }
+                                    }
+
+                             }
+
+                            /* for (Player player: players){
                                  for (Player player1: players) {
                                      if (player.getNitems() == player1.getId()){
                                          if (player1.getHp()<=0) {
@@ -235,30 +250,21 @@ public class DriverProgram {
                                      }
                                  }
                              }
-                             pokemonmuerto = false;
-                         }
 
+                             */
+
+
+/*
                          if (eliminarPokemon){
                              players.remove(tempdeadpokemon-1);
                              tempdeadpokemon = 0;
                              eliminarPokemon = false;
                          }
+*/
 
-                         if (checkregeneration){
-                             recuperacion = recuperacion+1;
 
-                             for (Player player: players){
-                                 if (player.getNitems()!=0){
 
-                                     if (recuperacion ==3){
-                                         System.out.println("Alerta: Pokemon del Jugador"+player.getName()+" recuperado");
-                                         player.setNitems(0);
-                                         recuperacion = 1;
-                                         checkregeneration = false;
-                                     }
-                                 }
-                             }
-                         }
+
 
                          if (generarPokemon){
                              Hunter l = (Hunter) players.get(turno-1);
@@ -267,7 +273,6 @@ public class DriverProgram {
                              int idpokemon = generarIDPlayer(players);
                              players.get(turno-1).setNitems(idpokemon);
                              Pokemon pokemon = new Pokemon(idpokemon,l.getPokemon(),25,7,0,none,"none","Regenerar");
-
                              players.add(pokemon);
                              generarPokemon = false;
                          }
@@ -276,7 +281,16 @@ public class DriverProgram {
 
 
                         }
-
+                            for (Player player: players){
+                                if (player.getNitems()!=0){
+                                    if (recuperacion ==3){
+                                        System.out.println("Alerta: Pokemon del Jugador"+player.getName()+" recuperado");
+                                        player.setNitems(0);
+                                        recuperacion = 1;
+                                    }
+                                }
+                            }
+                            recuperacion = recuperacion+1;
                    turno = 1;
                     while (turno<=enemys.size()) {
 
