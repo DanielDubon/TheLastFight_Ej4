@@ -16,16 +16,20 @@ import static Controller.Actions.*;
 public class DriverProgram {
     static boolean menu1 = true;
     static boolean menu2 = true;
+    static boolean pokemonmuerto = false;
     static boolean menu3Juego = true;
     public static boolean invocacion = false;
     public static boolean lluviacuradora = false;
-
+    public static boolean generarPokemon = false;
+    public static boolean checkregeneration = false;
     public static boolean revivir = false;
     static int turno = 0;
 
     static public ArrayList<Player> players = new ArrayList();
     static public ArrayList<Enemy> enemys = new ArrayList();
     static public ArrayList<Boss> bosses = new ArrayList();
+
+
 
     public static void main(String[] args) {
 
@@ -48,6 +52,7 @@ public class DriverProgram {
             System.out.println("2)Salir");
             System.out.print("Opcion: ");
             System.out.print("ingrese el numero de la opcion por favor: ");
+
             opcion = Integer.parseInt(in.nextLine());
 
 
@@ -59,6 +64,7 @@ public class DriverProgram {
                         System.out.println("¿Que tipo de personaje desea ser?");
                         System.out.println("1)Guerrero");
                         System.out.println("2)Explorador");
+                        System.out.println("3)Cazador");
                         System.out.print("ingrese el numero de la opcion por favor: ");
                         opcion = in.nextInt();
 
@@ -68,7 +74,7 @@ public class DriverProgram {
                             String name = in.nextLine();
                             int hp = 120;
                             int atk = 10;
-                            int Nitems = 1;
+                            int Nitems = 0;
 
                             ArrayList<String> items= new ArrayList<>();
                             items.add("Curar");
@@ -82,13 +88,25 @@ public class DriverProgram {
                             String name = in.nextLine();
                             int hp = 90;
                             int atk = 7;
-                            int Nitems = 3;
+                            int Nitems = 0;
                             ArrayList<String> items= new ArrayList<>();
                             items.add("Curar");
                             items.add("Subir Ataque");
                             items.add("Revivir");
                             items.add("Lluvia Curadora");
                             Explorer player = new Explorer(generarIDPlayer(players),name, hp, atk, Nitems,items);
+                            players.add(player);
+                        }else if (opcion ==3){
+                            System.out.println("¿Cual es tu nombre?");
+                            in.nextLine();
+                            String name = in.nextLine();
+                            int hp = 70;
+                            int atk = 5;
+                            int Nitems = 0;
+                            ArrayList<String> items= new ArrayList<>();
+                            items.add("Lanzar mascota");
+                            Hunter player = new Hunter(generarIDPlayer(players),name, hp, atk, Nitems,items,generatePet());
+                            System.out.println(player.getPokemon());
                             players.add(player);
                         }
 
@@ -122,53 +140,111 @@ public class DriverProgram {
                     }
 
                     turno = 1;
+                    int opcionatk =0;
+                    int turnorecuperacion=0;
                     while (menu3Juego){
+
                         turno =1;
                         if (gameRunning(players,enemys)){
                      while (turno <= players.size()){
                          for (Player player: players) {
+
                              if (player.getId() == turno) {
                                  if (!(player.getHp()<=0)){
                                  gamestatus(players, enemys);
                                  System.out.println("Es el turno del combatiente: " + turno +" "+ player.getName());
 
-                                 System.out.println("¿Que desea realizar?");
-                                 System.out.println("1)Atacar");
-                                 System.out.println("2)Item");
-                                 System.out.println("3)Pasar turno");
-                                 opcion = in.nextInt();
-                                 switch (opcion) {
-                                     case 1:
-                                         System.out.println("¿Que enemigo desea atacar?");
-                                         for (Enemy enemy : enemys) {
-                                             System.out.println("Enemigo " + enemy.getId() + ") Nombre: " + enemy.getName());
-                                         }
-                                         opcion = in.nextInt();
-                                         attack(turno, opcion, enemys, players);
-                                         break;
-                                     case 2:
-                                         if (!(player.getItems().isEmpty())) {
-                                             System.out.println("¿Que item desea utilizar?");
-                                             int indice = 0;
-                                             if (player.getId() == turno) {
-                                                 for (String items : player.getItems()) {
-                                                     indice = indice + 1;
-                                                     System.out.println(indice + ") " + items);
-                                                 }
-                                                 in.nextLine();
-                                                 opcion = in.nextInt();
-                                                 useitem(turno, opcion, enemys, players);
+                                 if (player.getName().equalsIgnoreCase("Cat")  ||player.getName().equalsIgnoreCase("Dog") ||player.getName().equalsIgnoreCase("Monkey")) {
+                                    attack(turno,opcionatk,enemys,players);
+                                 }else {
+
+                                     System.out.println("¿Que desea realizar?");
+                                     System.out.println("1)Atacar");
+                                     System.out.println("2)Item");
+                                     System.out.println("3)Pasar turno");
+                                     opcion = in.nextInt();
+                                     switch (opcion) {
+                                         case 1:
+                                             System.out.println("¿Que enemigo desea atacar?");
+                                             for (Enemy enemy : enemys) {
+                                                 System.out.println("Enemigo " + enemy.getId() + ") Nombre: " + enemy.getName());
                                              }
-                                         }else {System.out.println("No se tienen items para usar..."); turno = turno-1;}
-                                         break;
-                                     case 3: System.out.println("No se realizo nada...");
-                                         break;
+                                             opcionatk = in.nextInt();
+                                             attack(turno, opcionatk, enemys, players);
+
+                                             break;
+                                         case 2:
+                                             if (!(player.getItems().isEmpty())) {
+                                                 System.out.println("¿Que item desea utilizar?");
+                                                 int indice = 0;
+                                                 if (player.getId() == turno) {
+                                                     for (String items : player.getItems()) {
+                                                         indice = indice + 1;
+                                                         System.out.println(indice + ") " + items);
+                                                     }
+                                                     in.nextLine();
+                                                     opcion = in.nextInt();
+                                                     useitem(turno, opcion, enemys, players);
+
+                                                 }
+                                             } else {
+                                                 System.out.println("No se tienen items para usar...");
+                                                 turno = turno - 1;
+                                             }
+                                             break;
+                                         case 3:
+                                             System.out.println("No se realizo nada...");
+                                             break;
+                                     }
                                  }
-                             }else{System.out.println(player.getName()+" esta muerto...");}
+                             }else{
+                                     if (player instanceof Pokemon){
+                                         pokemonmuerto = true;
+
+                                     }
+
+                                     if (players.get(turno-1) instanceof Pokemon){
+                                         players.get(turno-1).setHp(0);
+                                     }
+
+                                     System.out.println(player.getName()+" esta muerto...");}
                              }
+
+                         }
+                         if (pokemonmuerto){
+                             if (players.get(turno-1) instanceof Pokemon) {
+                                 System.out.println("Pokemon regenerandose, podras lanzarlo....");
+                                 players.remove(players.get(turno - 1));
+                             }
+                                 turnorecuperacion =turnorecuperacion+1;
+                                 System.out.println( "Asdasd "+turnorecuperacion);
+                                 if (turnorecuperacion == 3){
+                                     if (players.get(turno-1).getNitems() ==1) {
+                                         players.get(turno - 1).setNitems(0);
+
+                                         pokemonmuerto = false;
+                                     }
+                                 }
+
+
+
+                         }
+
+
+
+
+                         if (generarPokemon){
+                             Hunter l = (Hunter) players.get(turno-1);
+                             System.out.println(l.getPokemon());
+                             ArrayList<String> none = new ArrayList<>();
+                             Pokemon pokemon = new Pokemon(generarIDPlayer(players),l.getPokemon(),1000,7,0,none,"none","Regenerar");
+                             players.add(pokemon);
+                             generarPokemon = false;
                          }
 
                             turno = turno+1;
+
+
                         }
                    turno = 1;
                     while (turno<=enemys.size()) {
@@ -222,6 +298,8 @@ public class DriverProgram {
                             revivir(players);
                             revivir = false;
                         }
+
+
                             turno = turno + 1;
 
 
@@ -233,6 +311,7 @@ public class DriverProgram {
                             menu3Juego = false;
                         }
                     }
+                    in.nextLine();
                         break;
                         case 2:
                             System.out.println("                         ");
