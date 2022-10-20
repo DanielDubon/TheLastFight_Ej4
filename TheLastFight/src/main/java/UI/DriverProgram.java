@@ -21,10 +21,14 @@ public class DriverProgram {
     public static boolean invocacion = false;
     public static boolean lluviacuradora = false;
     public static boolean generarPokemon = false;
+    public static boolean eliminarPokemon = false;
     public static boolean checkregeneration = false;
     public static boolean revivir = false;
     static int turno = 0;
 
+    static int turnoglobal =1;
+
+    static int tempdeadpokemon = 0;
     static public ArrayList<Player> players = new ArrayList();
     static public ArrayList<Enemy> enemys = new ArrayList();
     static public ArrayList<Boss> bosses = new ArrayList();
@@ -54,7 +58,7 @@ public class DriverProgram {
             System.out.print("ingrese el numero de la opcion por favor: ");
 
             opcion = Integer.parseInt(in.nextLine());
-
+            turnoglobal = 1;
 
 
 
@@ -100,7 +104,7 @@ public class DriverProgram {
                             System.out.println("¿Cual es tu nombre?");
                             in.nextLine();
                             String name = in.nextLine();
-                            int hp = 70;
+                            int hp = 200;
                             int atk = 5;
                             int Nitems = 0;
                             ArrayList<String> items= new ArrayList<>();
@@ -141,9 +145,10 @@ public class DriverProgram {
 
                     turno = 1;
                     int opcionatk =0;
-                    int turnorecuperacion=0;
+                    int recuperacion = 0;
                     while (menu3Juego){
-
+                        System.out.println("");
+                        System.out.println("******************************************* Turno numero: "+turnoglobal+" *******************************************");
                         turno =1;
                         if (gameRunning(players,enemys)){
                      while (turno <= players.size()){
@@ -193,6 +198,7 @@ public class DriverProgram {
                                              }
                                              break;
                                          case 3:
+
                                              System.out.println("No se realizo nada...");
                                              break;
                                      }
@@ -200,44 +206,68 @@ public class DriverProgram {
                              }else{
                                      if (player instanceof Pokemon){
                                          pokemonmuerto = true;
-
-                                     }
-
-                                     if (players.get(turno-1) instanceof Pokemon){
-                                         players.get(turno-1).setHp(0);
-                                     }
-
-                                     System.out.println(player.getName()+" esta muerto...");}
-                             }
-
-                         }
-                         if (pokemonmuerto){
-                             if (players.get(turno-1) instanceof Pokemon) {
-                                 System.out.println("Pokemon regenerandose, podras lanzarlo....");
-                                 players.remove(players.get(turno - 1));
-                             }
-                                 turnorecuperacion =turnorecuperacion+1;
-                                 System.out.println( "Asdasd "+turnorecuperacion);
-                                 if (turnorecuperacion == 3){
-                                     if (players.get(turno-1).getNitems() ==1) {
-                                         players.get(turno - 1).setNitems(0);
-
+                                     }else {
                                          pokemonmuerto = false;
                                      }
+
+
+                                     System.out.println(player.getName()+" esta muerto...");
                                  }
 
 
+                             }
 
                          }
 
 
 
+                         if (pokemonmuerto){
+                             for (Player player: players){
+                                 for (Player player1: players) {
+                                     if (player.getNitems() == player1.getId()){
+                                         if (player1.getHp()<=0) {
+                                             System.out.println("El pokemon " + player1.getName() + " del jugador " + player.getName() + " esta muerto ");
+                                             tempdeadpokemon = player1.getId();
+                                             eliminarPokemon = true;
+                                             checkregeneration = true;
+                                         }
+
+                                     }
+                                 }
+                             }
+                             pokemonmuerto = false;
+                         }
+
+                         if (eliminarPokemon){
+                             players.remove(tempdeadpokemon-1);
+                             tempdeadpokemon = 0;
+                             eliminarPokemon = false;
+                         }
+
+                         if (checkregeneration){
+                             recuperacion = recuperacion+1;
+
+                             for (Player player: players){
+                                 if (player.getNitems()!=0){
+
+                                     if (recuperacion ==3){
+                                         System.out.println("Alerta: Pokemon del Jugador"+player.getName()+" recuperado");
+                                         player.setNitems(0);
+                                         recuperacion = 1;
+                                         checkregeneration = false;
+                                     }
+                                 }
+                             }
+                         }
 
                          if (generarPokemon){
                              Hunter l = (Hunter) players.get(turno-1);
                              System.out.println(l.getPokemon());
                              ArrayList<String> none = new ArrayList<>();
-                             Pokemon pokemon = new Pokemon(generarIDPlayer(players),l.getPokemon(),1000,7,0,none,"none","Regenerar");
+                             int idpokemon = generarIDPlayer(players);
+                             players.get(turno-1).setNitems(idpokemon);
+                             Pokemon pokemon = new Pokemon(idpokemon,l.getPokemon(),25,7,0,none,"none","Regenerar");
+
                              players.add(pokemon);
                              generarPokemon = false;
                          }
@@ -246,6 +276,7 @@ public class DriverProgram {
 
 
                         }
+
                    turno = 1;
                     while (turno<=enemys.size()) {
 
@@ -255,7 +286,6 @@ public class DriverProgram {
                         for (Enemy enemy : enemys) {
 
                             if (enemy.getId() == turno){
-                                System.out.println("Tipo de enemigo: "+enemy.getType());
                                 if (!(enemy.getHp() <= 0) ){
                                 if (enemy.getType().equals("Minion")){//ataque minions
                             if (enemymovement == 1 || enemymovement == 2 || enemymovement == 3) {
@@ -310,6 +340,8 @@ public class DriverProgram {
                             checkwinner(players,enemys);
                             menu3Juego = false;
                         }
+                        turnoglobal++;
+
                     }
                     in.nextLine();
                         break;

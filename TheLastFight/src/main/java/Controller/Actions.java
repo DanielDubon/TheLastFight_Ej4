@@ -314,7 +314,6 @@ public class Actions {
                     player.setItems(actualizaciondeitems);
                 } else if (player.getItems().get(opcion-1).equals("Lanzar mascota")){
                     if (player.getNitems() == 0) {
-                        player.setNitems(1);
                         generarPokemon = true;
                     }else {
                         System.out.println("Tu acompañante sigue en batalla o aun no se a regenerado...");
