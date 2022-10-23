@@ -25,7 +25,7 @@ public class Actions {
         String esp;
         String espF;
         String type;
-        if (players.size() <= 2) {
+        if (players.size() <= 1) {
             Minion enemy;
 
             //switch para generar enemigos simples
@@ -90,7 +90,7 @@ public class Actions {
             }
 
 
-        } else {
+        } else if (players.size() <= 2){
             int bossrandom = (int) (Math.random() * 3 + 1);
             switch (bossrandom) {
 
@@ -134,6 +134,78 @@ public class Actions {
 
 
             }
+        }else {
+
+            switch (randomvalue) {
+                case 1:
+                name = "Leviathan :King of Demonds";
+                msg = ".............................";
+                hp = 550;
+                atk = 50;
+                esp = "AtaqueDoble";
+                espF = "Invocacion";
+                type = "Boss";
+                Boss enemy = new Boss(generarIDEnemy(enemys), espF, name, msg, hp, atk, esp, type);
+                enemys.add(enemy);
+                bosses.add(enemy);
+                break;
+
+                case 2:
+                    name = "Leviathan :King of Demonds";
+                    msg = ".............................";
+                    hp = 600;
+                    atk = 50;
+                    esp = "AtaqueDoble";
+                    espF = "Llama eterna";
+                    type = "Boss";
+                    enemy = new Boss(generarIDEnemy(enemys), espF, name, msg, hp, atk, esp, type);
+                    enemys.add(enemy);
+                    bosses.add(enemy);
+
+                    name = "Sussy";
+                    msg = "No podras ganarme";
+                    hp = 80;
+                    atk = 5;
+                    esp = "Regeneracion";
+                    type = "Minion";
+                    Enemy minion = new Minion(generarIDEnemy(enemys), name, msg, hp, atk, esp, type);
+                    enemys.add(minion);
+
+                    break;
+
+                case 3:
+
+                    name = "Leviathan :King of Demonds";
+                    msg = ".............................";
+                    hp = 600;
+                    atk = 50;
+                    esp = "Regeneracion";
+                    espF = "Necroespada";
+                    type = "Boss";
+                    enemy = new Boss(generarIDEnemy(enemys), espF, name, msg, hp, atk, esp, type);
+                    enemys.add(enemy);
+                    bosses.add(enemy);
+
+                    name = "Hulises";
+                    msg = "Eres muy lento";
+                    hp = 40;
+                    atk = 40;
+                    esp = "AtaqueDoble";
+                    type = "Minion";
+                     minion = new Minion(generarIDEnemy(enemys), name, msg, hp, atk, esp, type);
+                    enemys.add(minion);
+
+                    name = "Ciclope";
+                    msg = "Miren como mueren";
+                    hp = 140;
+                    atk = 10;
+                    esp = "Regeneracion";
+                    type = "Minion";
+                    minion = new Minion(generarIDEnemy(enemys), name, msg, hp, atk, esp, type);
+                    enemys.add(minion);
+                    break;
+            }
+
         }
 
 
@@ -147,7 +219,7 @@ public class Actions {
         System.out.println(" ");
         System.out.println("-------------------------");
         for (Player player : players) {
-            System.out.println("Combatiente " + player.getId() + " Nombre: " + player.getName() + " vida: " + player.getHp() + " Items: " + player.getNitems());
+            System.out.println("Combatiente " + player.getId() + " Nombre: " + player.getName() + " vida: " + player.getHp() + " Items: " + player.getItems().size());
         }
         System.out.println(" ");
         System.out.println("  ++++++VS++++++  ");

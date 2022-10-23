@@ -65,65 +65,130 @@ public class DriverProgram {
 
             switch (opcion) {
                 case 1:
+                    System.out.println("¿Que modo de juego desea jugar?");
+                    System.out.println("1)Normal");
+                    System.out.println("2)Raid");
+                    System.out.print("ingrese el numero de la opcion por favor: ");
+                    opcion = Integer.parseInt(in.nextLine());
                     while (menu2) {
-                        System.out.println("¿Que tipo de personaje desea ser?");
-                        System.out.println("1)Guerrero");
-                        System.out.println("2)Explorador");
-                        System.out.println("3)Cazador");
-                        System.out.print("ingrese el numero de la opcion por favor: ");
-                        opcion = in.nextInt();
-
                         if (opcion == 1) {
-                            System.out.println("¿Cual es tu nombre?");
+                            System.out.println("¿Que tipo de personaje desea ser?");
+                            System.out.println("1)Guerrero");
+                            System.out.println("2)Explorador");
+                            System.out.println("3)Cazador");
+                            System.out.print("ingrese el numero de la opcion por favor: ");
+                            opcion = in.nextInt();
+
+                            if (opcion == 1) {
+                                System.out.println("¿Cual es tu nombre?");
+                                in.nextLine();
+                                String name = in.nextLine();
+                                int hp = 120;
+                                int atk = 10;
+                                int Nitems = 0;
+
+                                ArrayList<String> items = new ArrayList<>();
+                                items.add("Curar");
+
+                                Warrior player = new Warrior(generarIDPlayer(players), name, hp, atk, Nitems, items);
+                                players.add(player);
+
+                            } else if (opcion == 2) {
+                                System.out.println("¿Cual es tu nombre?");
+                                in.nextLine();
+                                String name = in.nextLine();
+                                int hp = 90;
+                                int atk = 7;
+                                int Nitems = 0;
+                                ArrayList<String> items = new ArrayList<>();
+                                items.add("Curar");
+                                items.add("Subir Ataque");
+                                items.add("Revivir");
+                                items.add("Lluvia Curadora");
+                                Explorer player = new Explorer(generarIDPlayer(players), name, hp, atk, Nitems, items);
+                                players.add(player);
+                            } else if (opcion == 3) {
+                                System.out.println("¿Cual es tu nombre?");
+                                in.nextLine();
+                                String name = in.nextLine();
+                                int hp = 200;
+                                int atk = 5;
+                                int Nitems = 0;
+                                ArrayList<String> items = new ArrayList<>();
+                                items.add("Lanzar mascota");
+                                Hunter player = new Hunter(generarIDPlayer(players), name, hp, atk, Nitems, items, generatePet());
+                                System.out.println(player.getPokemon());
+                                players.add(player);
+                            }
+
+                            System.out.println("¿Desea agregar otro jugador?");
+                            System.out.println("1) Si");
+                            System.out.println("2) No");
+                            opcion = in.nextInt();
                             in.nextLine();
-                            String name = in.nextLine();
-                            int hp = 120;
-                            int atk = 10;
-                            int Nitems = 0;
+                            if (opcion == 1) {
+                                System.out.println("Agregando otro jugador....");
+                            } else if (opcion == 2) {
+                                menu2 = false;
+                            }
+                        }else if (opcion == 2){
+                            System.out.println("Debes agregar 3 jugadores para luchar contra el Rey de los demonios...." );
+                            System.out.println("");
+                            int A =0;
+                            while (A < 3) {
+                                System.out.println("¿Que tipo de personaje desea ser?");
+                                System.out.println("1)Guerrero");
+                                System.out.println("2)Explorador");
+                                System.out.println("3)Cazador");
+                                System.out.print("ingrese el numero de la opcion por favor: ");
+                                opcion = in.nextInt();
 
-                            ArrayList<String> items= new ArrayList<>();
-                            items.add("Curar");
 
-                            Warrior player = new Warrior(generarIDPlayer(players),name, hp, atk, Nitems,items);
-                            players.add(player);
+                                if (opcion == 1) {
+                                    System.out.println("¿Cual es tu nombre?");
+                                    in.nextLine();
+                                    String name = in.nextLine();
+                                    int hp = 120;
+                                    int atk = 10;
+                                    int Nitems = 0;
 
-                        } else if (opcion == 2) {
-                            System.out.println("¿Cual es tu nombre?");
-                            in.nextLine();
-                            String name = in.nextLine();
-                            int hp = 90;
-                            int atk = 7;
-                            int Nitems = 0;
-                            ArrayList<String> items= new ArrayList<>();
-                            items.add("Curar");
-                            items.add("Subir Ataque");
-                            items.add("Revivir");
-                            items.add("Lluvia Curadora");
-                            Explorer player = new Explorer(generarIDPlayer(players),name, hp, atk, Nitems,items);
-                            players.add(player);
-                        }else if (opcion ==3){
-                            System.out.println("¿Cual es tu nombre?");
-                            in.nextLine();
-                            String name = in.nextLine();
-                            int hp = 200;
-                            int atk = 5;
-                            int Nitems = 0;
-                            ArrayList<String> items= new ArrayList<>();
-                            items.add("Lanzar mascota");
-                            Hunter player = new Hunter(generarIDPlayer(players),name, hp, atk, Nitems,items,generatePet());
-                            System.out.println(player.getPokemon());
-                            players.add(player);
-                        }
+                                    ArrayList<String> items = new ArrayList<>();
+                                    items.add("Curar");
 
-                        System.out.println("¿Desea agregar otro jugador?");
-                        System.out.println("1) Si");
-                        System.out.println("2) No");
-                        opcion = in.nextInt();
-                        in.nextLine();
-                        if (opcion == 1) {
-                            System.out.println("Agregando otro jugador....");
-                        } else if (opcion == 2) {
-                            menu2 = false;
+                                    Warrior player = new Warrior(generarIDPlayer(players), name, hp, atk, Nitems, items);
+                                    players.add(player);
+
+                                } else if (opcion == 2) {
+                                    System.out.println("¿Cual es tu nombre?");
+                                    in.nextLine();
+                                    String name = in.nextLine();
+                                    int hp = 90;
+                                    int atk = 7;
+                                    int Nitems = 0;
+                                    ArrayList<String> items = new ArrayList<>();
+                                    items.add("Curar");
+                                    items.add("Subir Ataque");
+                                    items.add("Revivir");
+                                    items.add("Lluvia Curadora");
+                                    Explorer player = new Explorer(generarIDPlayer(players), name, hp, atk, Nitems, items);
+                                    players.add(player);
+                                } else if (opcion == 3) {
+                                    System.out.println("¿Cual es tu nombre?");
+                                    in.nextLine();
+                                    String name = in.nextLine();
+                                    int hp = 200;
+                                    int atk = 5;
+                                    int Nitems = 0;
+                                    ArrayList<String> items = new ArrayList<>();
+                                    items.add("Lanzar mascota");
+                                    Hunter player = new Hunter(generarIDPlayer(players), name, hp, atk, Nitems, items, generatePet());
+                                    System.out.println(player.getPokemon());
+                                    players.add(player);
+                                }
+                                A++;
+                                menu2 = false;
+
+                            }
                         }
                     }
 
@@ -207,6 +272,8 @@ public class DriverProgram {
                              }else{
                                      if (player instanceof Pokemon){
                                          pokemonmuerto = true;
+
+
                                      }else {
                                          pokemonmuerto = false;
                                      }
@@ -237,30 +304,6 @@ public class DriverProgram {
 
                              }
 
-                            /* for (Player player: players){
-                                 for (Player player1: players) {
-                                     if (player.getNitems() == player1.getId()){
-                                         if (player1.getHp()<=0) {
-                                             System.out.println("El pokemon " + player1.getName() + " del jugador " + player.getName() + " esta muerto ");
-                                             tempdeadpokemon = player1.getId();
-                                             eliminarPokemon = true;
-                                             checkregeneration = true;
-                                         }
-
-                                     }
-                                 }
-                             }
-
-                             */
-
-
-/*
-                         if (eliminarPokemon){
-                             players.remove(tempdeadpokemon-1);
-                             tempdeadpokemon = 0;
-                             eliminarPokemon = false;
-                         }
-*/
 
 
 
@@ -280,6 +323,8 @@ public class DriverProgram {
                             turno = turno+1;
 
 
+                         recuperacion = recuperacion+1;
+
                         }
                             for (Player player: players){
                                 if (player.getNitems()!=0){
@@ -290,7 +335,8 @@ public class DriverProgram {
                                     }
                                 }
                             }
-                            recuperacion = recuperacion+1;
+
+
                    turno = 1;
                     while (turno<=enemys.size()) {
 
