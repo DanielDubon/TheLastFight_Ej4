@@ -650,4 +650,36 @@ public class Actions {
 
         return "None";
     }
+
+    public static int clonado;
+    public static boolean clonar;
+    public static void specialRaidmovement(int turno, int opcion, ArrayList<Player> players, ArrayList<Boss> bosses){
+        int special = 1;
+
+                //(int)( Math.random()*3+1);
+        switch (special){
+            case 1:
+                System.out.println("ALERTA: Leviathan uso clonar");
+
+                if (enemys.size()>1){
+                    clonar = true;
+                    for (Enemy enemy: enemys){
+                         clonado =   enemy.getId();
+
+                    }
+
+                }
+                 break;
+            case 2:
+                System.out.println("ALERTA: Leviathan uso variar");
+                System.out.println("Habilidades especiales variadas");
+                break;
+            case 3:
+                System.out.println("ALERTA: Se liberaron a los clones...");
+
+        }
+
+
+
+    }
 }

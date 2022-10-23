@@ -366,7 +366,11 @@ public class DriverProgram {
                                         opcion = (int) (Math.random() * players.size() + 1);
                                         enemyuseitem(turno, opcion, enemys, players);
                                     }else if(bossmovement == 6   ){
+                                        opcion = (int) (Math.random() * players.size() + 1);
                                         bossfinal(turno, opcion,players,bosses);
+                                        if (enemy.getName().equalsIgnoreCase("Leviathan :King of Demonds")){
+                                            specialRaidmovement(turno,opcion,players,bosses);
+                                        }
                                     }
                                 }else {}
 
@@ -376,6 +380,12 @@ public class DriverProgram {
                         if (invocacion){
                             invocar();
                             invocacion = false;
+                        }
+
+                        if (clonar){
+                          enemys.add(enemys.get(clonado-1));
+                            System.out.println("Clon agregado al campo de batalla");
+                            clonar = false;
                         }
 
                         if (lluviacuradora){
